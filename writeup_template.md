@@ -17,12 +17,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
- [image1]: ./examples/training_set_distributuion.png "Visualization"
- [image4]: ./examples/image1.jpg "Traffic Sign 1"
- [image5]: ./examples/image2.png "Traffic Sign 2"
-[image6]: ./examples/image3.png "Traffic Sign 3"
-[image7]: ./examples/image4.jpg "Traffic Sign 4"
-[image8]: ./examples/image5.jpg "Traffic Sign 5"
+ [image1]: ./graphs/training_set_distributuion.png "Visualization"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -118,10 +114,13 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+<img src="./examples/image1.jpg" width="100">
+<img src="./examples/image2.png" width="100">
+<img src="./examples/image3.png" width="100">
+<img src="./examples/image4.jpg" width="100">
+<img src="./examples/image5.jpg" width="100">
 
-The first image might be difficult to classify because ...
+These images show the traffic signs only without any background from real world, like it is in the traaining set, which contains real images from theroad.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
