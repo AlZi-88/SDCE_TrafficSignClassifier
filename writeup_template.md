@@ -95,17 +95,11 @@ My final model results were:
 * validation set accuracy of 0.804 
 * test set accuracy of 0.826
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+I started my modelwith the original [Lenet-model](https://en.wikipedia.org/wiki/LeNet). Since the model was initially designed to take (32x32x1) as input and not (32x32x3) I first had to adapt the model weights to match the current configuration. Same was necessary for the output classes. While testing I was not relly satisfied with the results. I assumed this was caused by the limited number of parameters inside of the model. Initially the model was designed to detect the numbers from 0-9, I have to detect 43 output classes. Also the input is very different and has two additional color channels. So in total the information to precess and predict is much higher. So I decided to add an additional layer and also to increase the depth of each layer.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+This step was quite effective and my training accuracy was increasing. Unfortunately I had to deal with overfitting on the training set at this point, which lead me to the decision to add dropout in the model.
+
+Once the design was fixed I varied the hyperparameters, especially learning rate and number of epochs. I tried learning rates from 0.1 to 0.0005 and number of epochs from 10 to 70. Finally with the setting of a learning rate of 0.001 and 20 epochs I could achieve the best mix of accuracy and training time.
  
 
 ### Test a Model on New Images
@@ -139,18 +133,12 @@ The model was able to correctly guess 2 of the 5 traffic signs, which gives an a
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 19th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+In the image below the top 5 prediction probabilities for each image are plotted.
+For the 'priority road'- and 'right-of-way at the next intersection"-signs the model is very certain about it's result and the result is correct for these ones. For the "no passing"-sign the model is also very certain about the result but in this case the result is wrong. The other two results the model is quite uncertain about it's result.
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+<img src="./graphs/top_5_example_images.png" width="500">
 
-
-
+In a next step I will update the training data to have a better distribution in it. I guess this is the most effective measure to further improve the model accuracy.
 
