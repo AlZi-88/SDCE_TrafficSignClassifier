@@ -60,40 +60,44 @@ As a first step, I normalized the data to have a mean of about 0. To do so first
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+My final model consisted of the following layers, a visual scetch of the model architecture could be found below the table:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, VALID padding, outputs 30x30x120 	|
+| Convolution 3x3     	| 1x1 stride, VALID padding, outputs 30x30x40 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 15x15x40 				|
+| Convolution 3x3	    | 1x1 stride, VALID padding, outputs 12x12x120     									|
 | RELU					|												|
 | Dropout	      	|     				|
-| Max pooling	      	| 2x2 stride,  outputs 15x15x120 				|
-| Convolution 3x3	    | 1x1 stride, VALID padding, outputs 12x12x360     									|
+| Max pooling	      	| 2x2 stride,  outputs 6x6x120 				|
+| Fully connected		|  outputs 4320        									|
 | RELU					|												|
 | Dropout	      	|     				|
-| Max pooling	      	| 2x2 stride,  outputs 6x6x360 				|
 | Fully connected		|  outputs 1200        									|
 | RELU					|												|
 | Dropout	      	|     				|
-| Fully connected		|  outputs 258        									|
+| Fully connected		|  outputs 688        									|
 | RELU					|												|
 | Dropout	      	|     				|
+| Fully connected		|  outputs 172        									|
+| RELU					|												|
 | Fully connected		|  outputs 43        									|
 
  
-
+<img src="./graphs/Architecture.png">
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an [Adam Optimizer](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam). My batches have an size of 128 and I am training in 20 epochs with a learning rate of 0.001. When I first trained my model I had difficulties with overfitting to the training data. To avoid this overfitting I added dropout in the model and used a factor of 0.5 during the training.
+To train the model, I used an [Adam Optimizer](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam). My batches have an size of 256 and I am training in 40 epochs with a learning rate of 0.001. Before I was evaluating a batch size of 128 and 64 with slightly less accuracy. When I first trained my model I had difficulties with overfitting to the training data. To avoid this overfitting I added dropout in the model and used a factor of 0.5 during the training.
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of 0.940
-* validation set accuracy of 0.804 
-* test set accuracy of 0.826
+* training set accuracy of 0.xxx
+* validation set accuracy of 0.xxx 
+* test set accuracy of 0.xxx
 
 I started my modelwith the original [Lenet-model](https://en.wikipedia.org/wiki/LeNet). Since the model was initially designed to take (32x32x1) as input and not (32x32x3) I first had to adapt the model weights to match the current configuration. Same was necessary for the output classes. While testing I was not relly satisfied with the results. I assumed this was caused by the limited number of parameters inside of the model. Initially the model was designed to detect the numbers from 0-9, I have to detect 43 output classes. Also the input is very different and has two additional color channels. So in total the information to precess and predict is much higher. So I decided to add an additional layer and also to increase the depth of each layer.
 
@@ -101,6 +105,7 @@ This step was quite effective and my training accuracy was increasing. Unfortuna
 
 Once the design was fixed I varied the hyperparameters, especially learning rate and number of epochs. I tried learning rates from 0.1 to 0.0005 and number of epochs from 10 to 70. Finally with the setting of a learning rate of 0.001 and 20 epochs I could achieve the best mix of accuracy and training time.
  
+Even with these measures my model was badly overfitting (94% vs. ~80% accuracy), so I had to modify my training data. To do so I used two techniques to balance my training data set. As a base I used a mix between random oversampling and random undersampling to get a balanced base data set which has 430 images per class. This already makes the model more robust since it sees for each class a equal number of images for training. To virtually increase the training data I also used to oversize image dataset to add augmentations. The augmentations I added is random rotation, random color modifications and random zooming. After all these modifications my dataset contains 364210 images, instead of 34799 before. I decided not to use fliping measures as augmentation, simply because a right arrow image has a completely different meaning after flipping it from left to right. 
 
 ### Test a Model on New Images
 
