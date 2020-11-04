@@ -65,23 +65,26 @@ My final model consisted of the following layers, a visual scetch of the model a
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, VALID padding, outputs 30x30x40 	|
+| Convolution 3x3     	| 1x1 stride, VALID padding, outputs 30x30x20 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 15x15x40 				|
-| Convolution 3x3	    | 1x1 stride, VALID padding, outputs 12x12x120     									|
+| Max pooling	      	| 2x2 stride,  outputs 15x15x20 				|
+| Convolution 3x3	    | 1x1 stride, VALID padding, outputs 12x12x60     									|
 | RELU					|												|
 | Dropout	      	|     				|
-| Max pooling	      	| 2x2 stride,  outputs 6x6x120 				|
-| Fully connected		|  outputs 4320        									|
+| Max pooling	      	| 2x2 stride,  outputs 6x6x60 				|
+| Convolution 3x3	    | 1x1 stride, VALID padding, outputs 4x4x90     									|
+| RELU					|												|
+| Dropout	      	|     				|
+| Fully connected		|  outputs 1140        									|
 | RELU					|												|
 | Dropout	      	|     				|
 | Fully connected		|  outputs 1200        									|
 | RELU					|												|
 | Dropout	      	|     				|
-| Fully connected		|  outputs 688        									|
+| Fully connected		|  outputs 700        									|
 | RELU					|												|
 | Dropout	      	|     				|
-| Fully connected		|  outputs 172        									|
+| Fully connected		|  outputs 170        									|
 | RELU					|												|
 | Fully connected		|  outputs 43        									|
 
